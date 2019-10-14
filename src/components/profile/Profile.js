@@ -37,7 +37,7 @@ class Profile extends Component {
     fileInput.click();
   };
   handleLogout = () => {
-    this.props.logoutUser(this.props.history);
+    this.props.logoutUser(); //this.props.history
   };
 
   render() {
@@ -62,13 +62,13 @@ class Profile extends Component {
                 hidden="hidden"
                 onChange={this.handleImageChange}
               />
-              <MyButton
+              {/* <MyButton
                 tip="Edit profile picture"
                 onClick={this.handleEditPicture}
                 btnClassName="button"
               >
                 <EditIcon color="primary" />
-              </MyButton>
+              </MyButton> */}
             </div>
             <hr />
             <div className="profile-details">
@@ -105,7 +105,7 @@ class Profile extends Component {
             <MyButton tip="Logout" onClick={this.handleLogout}>
               <KeyboardReturn color="primary" />
             </MyButton>
-            <EditDetails />
+            {/* <EditDetails /> */}
           </div>
         </Paper>
       ) : (

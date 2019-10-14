@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { signupUser } from '../redux/actions/userActions';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import Intro from './introduction';
 
 
 class SignUpForm extends Component {
@@ -83,14 +84,21 @@ class SignUpForm extends Component {
       
         return (
         <div>
-          <div className="PageSwitcher">
-            <NavLink exact to="/sign-up" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
-            <NavLink to="/" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
-          </div>
-          <div className="FormTitle">
-            <NavLink to="/" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink> or <NavLink exact to="/sign-up" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
-          </div>
-          <div className="FormCenter">
+          <div className="left"> {/**className="App__Aside" */}
+                <div > {/**className="App_left_item" */}
+                  <Intro />
+                </div>
+              </div>
+          <div className="right">
+            {/* <div className="PageSwitcher">
+              <NavLink exact to="/sign-up" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+              <NavLink to="/" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
+            </div> */}
+            <div className="FormTitle">
+              <NavLink to="/" className="FormTitle__Link">Sign In</NavLink> or <NavLink exact to="/sign-up" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
+            </div>
+            <div className="FormCenter">
+              <div className="form-content">
               <form onSubmit={this.handleSubmit} className="FormFields">
                 <div className="FormField">
                   <label className="FormField__Label" htmlFor="name">Full Name</label>
@@ -118,11 +126,14 @@ class SignUpForm extends Component {
                 </div>
 
                 <div className="FormField">
-                    <button className="FormField__Button mr-20">Sign Up</button> <Link to="/sign-in" className="FormField__Link">I'm already member</Link>
+                    <button className="FormField__Button mr-20">Sign Up</button> <Link to="/" className="FormField__Link">I'm already member</Link>
                 </div>
               </form>
+              </div>
             </div>
+            
           </div>
+        </div>
         );
     }
 }

@@ -7,6 +7,9 @@ import Profile from '../components/profile/Profile';
 import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
 import PostPost from '../components/post/PostPost';
+import { logoutUser } from '../redux/actions/userActions';
+import MyButton from '../util/MyButton';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 class Home extends Component {
     constructor(props) {
@@ -15,6 +18,10 @@ class Home extends Component {
             token: localStorage.getItem('Token') || null
         };
     }
+
+    handleLogout = () => {
+        this.props.logoutUser(); //this.props.history
+    };
 
     componentDidMount() {
         const userData = {
@@ -26,7 +33,8 @@ class Home extends Component {
     }
     render() {
         if(!this.state.token) {
-            this.props.history.push('/');
+            //this.props.history.push('/');
+            this.props.logoutUser();
         }
         const { posts, loading } = this.props.data;
         let recentPostMarkup = !loading ? (
@@ -35,16 +43,27 @@ class Home extends Component {
             // <div></div>
             <PostSkeleton />
         );
+
         return (
             <div >
-                <div>
-                    <PostPost />
+                <div className="app-bar">
+                    <div className="post">
+                        <PostPost />
+                    </div>
+                    <div className="logout">
+                        {/* //utton className="log-out-btn" onClick={this.handleLogout} >Log Out</button> */}
+                        <MyButton tip="Logout" onClick={this.handleLogout}>
+                            <KeyboardReturn color="primary" />
+                        </MyButton>
+                    </div>
                 </div>
+                
+                <div className = "profile">
+                    <Profile />
+                </div>
+
                 <div >
                     {recentPostMarkup}
-                </div>
-                <div>
-                    <Profile />
                 </div>
             </div>
 
@@ -77,5 +96,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getPosts }
+    { getPosts , logoutUser}
   )(Home);

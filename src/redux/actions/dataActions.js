@@ -51,7 +51,7 @@ export const getPost = (postId) => (dispatch) => {
 export const post = (newPost) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/post', newPost)
+    .post('/upload', newPost)
     .then((res) => {
       dispatch({
         type: POST_POST,

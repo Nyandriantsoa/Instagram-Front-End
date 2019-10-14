@@ -4,7 +4,7 @@ import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import ForgotPwd from './pages/ForgotPwd';
 import Home from './pages/home';
-import Intro from './pages/introduction';
+//import Intro from './pages/introduction';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import axios from 'axios';
@@ -53,23 +53,23 @@ if (token) {
 
 class App extends React.Component {
   render() {
-    const showIntro = localStorage.getItem('user') ? <div></div> : (
-  <div className="App__Aside">
-                <div className="App_left_item">
-                  <Intro />
-                </div>
-              </div>
-)
+//     const showIntro = localStorage.getItem('user') ? <div></div> : (
+//   <div className="App__Aside">
+//                 <div className="App_left_item">
+//                   <Intro />
+//                 </div>
+//               </div>
+// )
 
     return (
       <MuiThemeProvider theme={theme}>
       <Provider store = {store}>
         <Router>
           {/* <Navbar /> */}
-          <div className="container">
-            <div className="App">
-              {showIntro}
-              <div className="App__Form">
+          <div className="container"> 
+            <div > {/**className="App" */}
+              {/* {showIntro} */}
+              <div > {/**className="App__Form" */}
                 
                 <Switch>
                   <Route exact path="/" component={SignInForm}></Route>
@@ -77,6 +77,7 @@ class App extends React.Component {
                   <Route exact path="/forgot" component={ForgotPwd}></Route>
                   <Route exact path="/home" component={Home}></Route>
                 </Switch>
+                
               </div>
             </div>
           </div>

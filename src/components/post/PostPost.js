@@ -63,15 +63,29 @@ class PostPost extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const formData = new FormData()
-    this.state.images.forEach((file, i) => {
-      formData.append(i, file , file.name)
-    })
+    const Token = localStorage.getItem('Token');
+    const body = this.state.body
 
-    this.props.post({ 
-      body: this.state.body,
-      images : formData
-    });
+    const formData = new FormData()
+    formData.append('token' , Token );
+    formData.append('body', body );
+    // this.state.images.forEach((file, i) => {
+    //   formData.append(i , file , file.name)
+    // })
+    formData.append('image' , this.state.images[0])
+
+    // const data = {
+    //   formData,
+    //   Token,
+    //   body
+    // }
+
+    this.props.post(formData);
+
+    //   { 
+    //   body: this.state.body,
+    //   images : formData
+    // }
   };
 
   removeImage = (event) => {
@@ -87,6 +101,29 @@ class PostPost extends Component {
     this.setState({images : currentList});
     //this.props.prepareImages({images : event.target.files})
   };
+
+  // handleImages = (event) => {
+  //   event.preventDefault();
+  //   var ImageTools = require("FuseJS/ImageTools");
+
+  //   //var newImag = {}
+  //   var currentList = Array.from(this.state.images);
+  //   var options = {
+  //     mode: ImageTools.IGNORE_ASPECT,
+  //     desiredWidth: 320, //The desired width in pixels
+  //     desiredHeight: 240 //The desired height in pixels
+  //   };
+  //   var newElement = Array.from(event.target.files);
+
+  //   for(var i = 0 ; i < newElement.length ; i ++){
+  //     ImageTools.resize(newElement[i], options)
+  //     .then(function(newImage) { currentList.push(newImage) });
+  //   }
+    
+  //   //currentList = currentList.concat(Array.from());
+  //   this.setState({images : currentList});
+  //   //this.props.prepareImages({images : event.target.files})
+  // };
 
   createListImages() {
     if(this.state.images){
@@ -114,8 +151,9 @@ class PostPost extends Component {
     } = this.props;
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip="Post something!">
-          <AddIcon />
+        <MyButton className="post-sth" onClick={this.handleOpen} tip="Post something!">
+        {/* <button className="btn-primary"><AddIcon /> Add Post</button> */}
+        <AddIcon />Add Post
         </MyButton>
         <Dialog
           open={this.state.open}
@@ -123,7 +161,7 @@ class PostPost extends Component {
           fullWidth
           maxWidth="sm"
         >
-          <MyButton
+          <MyButton className="close"
             tip="Close"
             onClick={this.handleClose}
             // tipClassName={classes.closeButton}
@@ -147,11 +185,15 @@ class PostPost extends Component {
                 fullWidth
               />
               {this.createListImages()}
-              {/* <input type='file' onChange={this.handleImages} id='multiple' name="images"  multiple /> */}
               <input type="file" onChange={this.handleImages} 
-                name="images"  multiple id="selectedFile" hidden 
+                name="images"  id="selectedFile" hidden 
               />
-              <input type="button" value="+ add Picture" onClick={this.openExplorer} />
+               {/* multiple */}
+               {/* className={classes.submitButton} */}
+               <Button type="button" variant="contained" onClick={this.openExplorer} color="primary"  disabled={loading} >
+               + add Picture
+               </Button>
+              {/* <input type="button" color="primary" value="+ add Picture" onClick={this.openExplorer} /> */}
               <Button
                 type="submit"
                 variant="contained"

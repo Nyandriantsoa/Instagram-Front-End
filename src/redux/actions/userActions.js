@@ -67,11 +67,11 @@ export const signupUser = (newUserData, history) => (dispatch) => {
     });
 };
 
-export const logoutUser = (history) => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('Token'); //FBIdToken
   localStorage.removeItem('user');
   delete axios.defaults.headers.common['Authorization'];
-  history.push('/');
+  window.location.href = '/';
   dispatch({ type: SET_UNAUTHENTICATED });
 };
 
